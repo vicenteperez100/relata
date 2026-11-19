@@ -107,10 +107,28 @@ con los botones "Lata auspiciadora" / "Lata de otra marca".
 - La clave secreta nunca llega al navegador: el registro ocurre en el servidor.
 - La cámara funciona en `http://localhost` y en sitios `https://` (no en una IP de la red local).
 
+## Publicar en Vercel
+
+1. Entra a [vercel.com](https://vercel.com) con tu cuenta de GitHub → **Add New → Project** →
+   importa `relata`. Vercel detecta Next.js solo.
+2. En **Environment Variables** agrega las mismas variables de `.env.local`, pero con
+   `NEXT_PUBLIC_SITE_URL` = la URL que te dé Vercel (ej. `https://relata.vercel.app`).
+   Genera una `MACHINE_API_KEY` nueva para producción.
+3. **Deploy.** Cada push a `main` publica una versión nueva; cada push a otra rama
+   crea una vista previa con su propio link.
+4. En Supabase → **Authentication → URL Configuration**:
+   - *Site URL*: tu URL de Vercel.
+   - *Redirect URLs*: agrega `https://TU-URL.vercel.app/**` (y deja la de localhost para desarrollar).
+
+## Revisión automática
+
+`.github/workflows/ci.yml` corre en GitHub en cada push: lint, tipos, tests,
+build y las pruebas de seguridad SQL contra un Postgres real.
+
 ## Carpetas
 
 ```
-app/          páginas y API
+app/          páginas (Inicio, Ingresar, Mi cuenta, Simulador, Privacidad) y API
 components/   piezas reutilizables de la interfaz
 lib/          lógica (reglas de puntos, base de datos, máquina)
 supabase/     esquema de la base de datos y sus pruebas
@@ -121,5 +139,8 @@ referencia/   maqueta aprobada, logo e imagen del producto (solo referencia)
 ## Seguridad y privacidad
 
 - Las claves van en `.env.local` (nunca en el código). La plantilla es `.env.example`.
-- Solo guardamos **correo y alias**.
-- El QR contiene un token aleatorio, no un número correlativo.
+- Solo guardamos **correo, alias, el token del QR y las latas**. Política en `/privacidad`.
+- El QR contiene un token aleatorio de 32 bytes, no un número correlativo, y se puede regenerar.
+- Cada persona puede borrar su cuenta y todos sus datos desde Mi cuenta.
+- Row Level Security en la base, clave de máquina comparada en tiempo constante,
+  encabezados de seguridad (`next.config.ts`) y auditoría de accesibilidad WCAG 2.2 AA con axe.
