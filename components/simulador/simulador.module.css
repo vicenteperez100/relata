@@ -1,0 +1,60 @@
+.head { padding-block: 28px 8px; display: grid; gap: 12px; }
+.head h1 { font-size: clamp(30px, 4.6vw, 48px); font-weight: 800; }
+.head p { max-width: 70ch; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 32px; align-items: start; margin-top: 16px; }
+.maquina { position: sticky; top: 16px; display: grid; justify-items: center; }
+.maquina svg { max-width: 360px; width: 100%; }
+.panel { display: grid; gap: 16px; min-width: 0; }
+
+.paso { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--brand); }
+.titulo { font-size: 26px; margin: 4px 0 14px; overflow-wrap: anywhere; }
+.acciones { display: flex; gap: 10px; flex-wrap: wrap; }
+.manual { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.manual summary { cursor: pointer; font-weight: 600; color: var(--brand); min-height: 32px; }
+.manual form { margin-top: 12px; }
+.manual input { font-family: var(--font-mono); font-size: 14px; }
+
+.persona { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.latas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.lata { min-height: 88px; flex-direction: column; gap: 2px; font-size: 17px; }
+.lata span { font-family: var(--font-mono); font-size: 14px; font-weight: 500; opacity: 0.9; }
+
+.live { display: grid; gap: 12px; }
+.resultado { display: grid; gap: 12px; }
+.premio {
+  background: var(--amber-soft); color: var(--amber-ink); font-weight: 700;
+  border-radius: 12px; padding: 10px 14px; font-size: 17px;
+}
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0; }
+.cifras dt { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); white-space: nowrap; }
+.cifras dd { margin: 2px 0 0; font-family: var(--font-display); font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Lector de QR */
+.lector { display: grid; gap: 12px; justify-items: start; }
+.video { position: relative; width: 100%; max-width: 420px; border-radius: 14px; overflow: hidden; background: var(--deep); aspect-ratio: 4 / 3; }
+.video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mira {
+  position: absolute; inset: 18% 24%; border: 3px solid var(--accent); border-radius: 14px;
+  box-shadow: 0 0 0 999px rgb(0 0 0 / 0.25);
+}
+.videoHint {
+  position: absolute; inset: auto 0 0; padding: 8px 12px; font-size: 14px;
+  color: #fff; background: rgb(0 0 0 / 0.55);
+}
+
+/* Sin acceso */
+.sinAcceso { max-width: 560px; display: grid; gap: 12px; margin-top: 24px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .maquina { position: static; }
+  .maquina svg { max-width: 260px; }
+}
+@media (max-width: 420px) {
+  .latas { grid-template-columns: 1fr; }
+  .lata { min-height: 64px; }
+  .cifras { gap: 8px; }
+  .cifras dt { font-size: 11px; letter-spacing: 0.02em; }
+  .cifras dd { font-size: 20px; }
+}
