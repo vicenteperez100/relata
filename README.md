@@ -29,13 +29,37 @@ npm run dev                 # abre http://localhost:3000
 npm test                    # corre los tests
 ```
 
+## Configurar Supabase (una sola vez)
+
+1. Crea un proyecto en [supabase.com](https://supabase.com) (región São Paulo).
+2. **SQL Editor → New query**: pega todo `supabase/migrations/0001_inicial.sql` y aprieta **Run**.
+3. **Project Settings → API Keys**: copia la *URL*, la *publishable key* y la *secret key*
+   en tu `.env.local` (nunca en el código ni en el chat).
+4. Verifica: `npm run db:verificar`. Debe terminar en "Todo bien".
+
+### Base de datos
+
+| Tabla | Qué guarda |
+|---|---|
+| `auth.users` | correo (lo gestiona Supabase Auth) |
+| `profiles` | alias opcional y token del QR |
+| `can_events` | cada lata: persona, tipo, máquina y fecha |
+| `conteo_latas` (vista) | latas por tipo de cada persona |
+
+Los **puntos no se guardan**: se calculan con `lib/reglas/puntos.ts` a partir del conteo.
+Con RLS, cada persona solo lee lo suyo; las latas solo se registran desde el servidor.
+
+`npm run test:sql` prueba el esquema en un Postgres local desechable
+(necesita Postgres instalado; usa las variables `PGHOST`, `PGPORT`, `PGUSER`).
+
 ## Carpetas
 
 ```
 app/          páginas y API
 components/   piezas reutilizables de la interfaz
 lib/          lógica (reglas de puntos, base de datos, máquina)
-supabase/     esquema de la base de datos
+supabase/     esquema de la base de datos y sus pruebas
+scripts/      verificación de Supabase y pruebas SQL
 referencia/   maqueta aprobada, logo e imagen del producto (solo referencia)
 ```
 
