@@ -29,7 +29,7 @@ export default function Ingresar({ searchParams }: PageProps<"/ingresar">) {
           <Formulario searchParams={searchParams} />
         </Suspense>
         <p className="auth-privacy">
-          Solo guardamos tu correo y el alias que elijas. <Link href="/#proyecto">¿Qué es ReLata?</Link>
+          Solo guardamos tu correo, el alias que elijas y tus latas. <Link href="/privacidad">Cómo cuidamos tus datos</Link>
         </p>
       </div>
     </div>

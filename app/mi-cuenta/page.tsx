@@ -13,6 +13,7 @@ import { resumenCuenta } from "@/lib/reglas/puntos";
 import { supabaseServidor } from "@/lib/supabase/servidor";
 import { cerrarSesion } from "./acciones";
 import { FormularioAlias } from "./FormularioAlias";
+import { OpcionesPrivacidad } from "./OpcionesPrivacidad";
 
 export const metadata: Metadata = { title: "Mi cuenta" };
 
@@ -96,7 +97,7 @@ async function Cuenta() {
       <section className={s.ajustes} aria-labelledby="titulo-ajustes">
         <h2 id="titulo-ajustes">Tu cuenta</h2>
         <p className="muted">
-          Ingresaste como <b>{usuario.correo}</b>. Solo guardamos tu correo y tu alias.
+          Ingresaste como <b>{usuario.correo}</b>. Solo guardamos tu correo, tu alias y tus latas.
         </p>
         <div className="card">
           <FormularioAlias aliasActual={perfil.alias} />
@@ -111,6 +112,8 @@ async function Cuenta() {
             Cerrar sesión
           </button>
         </form>
+        <h2 id="titulo-privacidad">Privacidad</h2>
+        <OpcionesPrivacidad />
       </section>
     </>
   );
