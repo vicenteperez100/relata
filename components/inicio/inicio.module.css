@@ -1,0 +1,182 @@
+/* Estilos de la página de Inicio (CSS Module: las clases solo aplican aquí). */
+
+/* ---------- Hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  padding-block: 36px 56px;
+}
+.hero h1 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 800; }
+.hero h1 em { font-style: normal; color: var(--brand); }
+.lead { font-size: 19px; color: var(--muted); max-width: 52ch; margin-top: 20px; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+/* ---------- Máquina animada ---------- */
+.machine { width: 100%; max-width: 380px; justify-self: center; }
+.body { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.deep { fill: var(--deep); }
+.screenText { fill: var(--on-deep); font-family: var(--font-mono); font-size: 13px; }
+.screenAccent { fill: var(--accent); }
+.metal { fill: var(--silver); }
+.stripe { fill: var(--accent); }
+.slot { fill: var(--line); }
+.reader { fill: none; stroke: var(--on-deep); stroke-width: 2; }
+
+/* Ciclo de 5 s: la placa baja, la lata se aplasta y cae al depósito. */
+.plate { animation: plate 5s ease-in-out infinite; }
+.can {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: can 5s ease-in-out infinite;
+}
+.screenMsg { animation: screen 5s steps(1, end) infinite; }
+
+@keyframes plate {
+  0%, 35% { transform: translateY(0); }
+  50%, 68% { transform: translateY(83px); }
+  80%, 100% { transform: translateY(0); }
+}
+@keyframes can {
+  0% { opacity: 0; transform: translateY(-30px) scaleY(1); }
+  8% { opacity: 1; transform: translateY(0) scaleY(1); }
+  35% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(0) scaleY(0.3); }
+  72% { opacity: 1; transform: translateY(0) scaleY(0.3); }
+  85% { opacity: 0; transform: translateY(40px) scaleY(0.3); }
+  100% { opacity: 0; transform: translateY(-30px) scaleY(1); }
+}
+/* El mensaje "+1,5 pts" aparece solo después de aplastar la lata */
+@keyframes screen {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  90% { opacity: 0; }
+}
+
+/* Sin animación: lata entera y mensaje visible */
+@media (prefers-reduced-motion: reduce) {
+  .plate, .can, .screenMsg { animation: none; }
+  .can, .screenMsg { opacity: 1; }
+}
+
+/* ---------- Secciones ---------- */
+.block { padding-block: 48px; border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+.block h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; max-width: 22ch; }
+.sub { color: var(--muted); max-width: 60ch; margin-top: 12px; }
+
+/* Problema */
+.problem {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  margin-top: 32px;
+  align-items: start;
+}
+.bars {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+.bars h3 { font-size: 16px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0; }
+.bar {
+  display: grid;
+  grid-template-columns: 96px 1fr 76px;
+  gap: 12px;
+  align-items: center;
+  font-size: 15px;
+}
+.track {
+  height: 18px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--silver);
+  border-radius: 5px 0 0 5px;
+}
+.range {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: repeating-linear-gradient(135deg, var(--silver) 0 4px, transparent 4px 8px);
+}
+.chile { font-weight: 600; }
+.chile .fill { background: var(--brand); }
+.val { font-family: var(--font-mono); font-size: 14px; text-align: right; }
+.source { font-size: 13px; color: var(--muted); }
+
+.facts { display: grid; gap: 18px; margin: 0; }
+.fact dt {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--brand);
+  line-height: 1;
+}
+.fact dd { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+
+/* Cómo funciona */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  padding: 0;
+  list-style: none;
+}
+.steps li {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  min-width: 0;
+}
+.stepNum { font-family: var(--font-mono); font-size: 13px; color: var(--brand); }
+.steps h3 { font-size: 20px; margin: 10px 0 6px; font-weight: 700; }
+.steps p { color: var(--muted); font-size: 15px; }
+
+/* Tres partes */
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 32px; }
+.three h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.three p { color: var(--muted); }
+
+/* Llamado a la acción */
+.ctaBand {
+  background: var(--deep);
+  color: var(--on-deep);
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.ctaBand h2 { color: #fff; font-size: clamp(24px, 3.4vw, 34px); max-width: 24ch; }
+.ctaBand p { margin-top: 8px; }
+.ctaButton { background: var(--accent); color: #06261e; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hero, .problem { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .three { grid-template-columns: 1fr; gap: 24px; }
+  .machine { max-width: 300px; }
+}
+@media (max-width: 520px) {
+  .hero { padding-block: 16px 40px; gap: 28px; }
+  .steps { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 76px 1fr 60px; gap: 8px; font-size: 14px; }
+  .ctaBand { padding: 24px; }
+}
