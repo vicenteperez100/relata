@@ -36,6 +36,21 @@ npm test                    # corre los tests
 3. **Project Settings → API Keys**: copia la *URL*, la *publishable key* y la *secret key*
    en tu `.env.local` (nunca en el código ni en el chat).
 4. Verifica: `npm run db:verificar`. Debe terminar en "Todo bien".
+5. **Authentication → URL Configuration**:
+   - *Site URL*: `http://localhost:3000` (cuando publiquemos, la URL de Vercel).
+   - *Redirect URLs*: agrega `http://localhost:3000/**`.
+6. **Authentication → Emails** (plantillas). En **Magic Link** y en **Confirm signup**,
+   cambia el enlace del cuerpo por este, para que funcione aunque abras el correo en
+   otro dispositivo:
+   ```html
+   <h2>Entra a ReLata</h2>
+   <p>Haz clic para ingresar. El enlace vence en una hora.</p>
+   <p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Ingresar a ReLata</a></p>
+   <p>Si no pediste este correo, ignóralo.</p>
+   ```
+
+> El plan gratis de Supabase envía pocos correos por hora (suficiente para la demo).
+> Para más, configura un SMTP propio en *Authentication → Emails → SMTP Settings*.
 
 ### Base de datos
 

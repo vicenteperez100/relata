@@ -243,6 +243,34 @@ button { cursor: pointer; }
 }
 .site-footer a { color: var(--muted); }
 
+/* ---------- Formularios ---------- */
+.form { display: grid; gap: 16px; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; }
+.field input {
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  font-size: 17px; /* ≥16px evita que iOS haga zoom al escribir */
+  width: 100%;
+}
+.field input::placeholder { color: var(--muted); opacity: 0.8; }
+.field input[aria-invalid="true"] { border-color: var(--danger); }
+.field-hint { font-size: 14px; color: var(--muted); }
+.form-error { color: var(--danger); font-size: 15px; font-weight: 500; }
+.form-success { color: var(--brand); font-size: 15px; font-weight: 600; }
+.form-ok { display: grid; gap: 12px; justify-items: start; }
+.form-ok h2 { font-size: 26px; }
+
+/* ---------- Ingresar ---------- */
+.auth { display: grid; place-items: center; padding-block: 32px 16px; }
+.auth-card { width: 100%; max-width: 460px; display: grid; gap: 16px; padding: 28px; }
+.auth-card h1 { font-size: clamp(28px, 4.4vw, 36px); font-weight: 800; }
+.auth-card .eyebrow { margin-bottom: 0; }
+.auth-privacy { font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+
 /* ---------- Página provisoria ---------- */
 .placeholder { padding-block: 48px; display: grid; gap: 16px; max-width: 60ch; }
 .placeholder h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; }

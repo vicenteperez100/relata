@@ -22,7 +22,10 @@ export function Header() {
       </Link>
       <nav className="main-nav" aria-label="Principal">
         {LINKS.map(({ href, label }) => {
-          const activo = href === "/" ? pathname === "/" : pathname.startsWith(href);
+          const activo =
+            href === "/"
+              ? pathname === "/"
+              : pathname.startsWith(href) || (href === "/mi-cuenta" && pathname.startsWith("/ingresar"));
           return (
             <Link key={href} href={href} aria-current={activo ? "page" : undefined}>
               {label}
