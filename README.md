@@ -67,6 +67,35 @@ Con RLS, cada persona solo lee lo suyo; las latas solo se registran desde el ser
 `npm run test:sql` prueba el esquema en un Postgres local desechable
 (necesita Postgres instalado; usa las variables `PGHOST`, `PGPORT`, `PGUSER`).
 
+## API de la máquina
+
+La máquina registra cada lata con una petición `POST /api/maquina/latas`,
+protegida con la clave `MACHINE_API_KEY` (va en `.env.local`, nunca en el código).
+
+```bash
+curl -X POST http://localhost:3000/api/maquina/latas \
+  -H "Authorization: Bearer $MACHINE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"token":"relata:<token del QR>","tipo":"auspiciadora","maquinaId":"RLT-01"}'
+```
+
+| Campo | Valor |
+|---|---|
+| `token` | Lo que leyó el lector de QR (`relata:...` o solo el token) |
+| `tipo` | `"auspiciadora"` o `"otra"` (según el código de barras de la lata) |
+| `maquinaId` | Identificador de la máquina: letras, números, `-` o `_` (máx. 40) |
+
+| Respuesta | Significado |
+|---|---|
+| `201` | Lata registrada. Devuelve puntos, nivel, `subioDeNivel` y `ganoLataGratis` para la pantalla |
+| `400` | Datos inválidos o el QR no es de ReLata |
+| `401` | Falta la clave o es incorrecta |
+| `404` | QR con buen formato pero no corresponde a ninguna cuenta |
+| `413` / `415` | Cuerpo muy grande o no es JSON |
+| `500` | Error interno (el detalle queda solo en los registros del servidor) |
+
+La lógica está en `lib/maquina/` y tiene tests (`npm test`).
+
 ## Carpetas
 
 ```
