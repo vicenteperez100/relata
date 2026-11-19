@@ -1,0 +1,440 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Relata</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Concepto: aluminio reciclado + circuito verde. Fondo gris aluminio con matiz verde,
+   tinta verde profundo, menta como acento y ámbar solo para puntos y niveles. */
+:root {
+  --bg: #ECF1EF;
+  --surface: #FFFFFF;
+  --surface-2: #F4F7F6;
+  --ink: #0F2F2A;
+  --muted: #4B635C;
+  --line: #D3DCD8;
+  --brand: #0F6B58;
+  --on-brand: #FFFFFF;
+  --accent: #1DBF8E;
+  --amber: #C98A00;
+  --amber-soft: #FBEFD0;
+  --deep: #0F2F2A;
+  --on-deep: #BFF3E0;
+  --silver: #CCD6D3;
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1816; --surface: #112521; --surface-2: #0E1F1C; --ink: #E6F1ED; --muted: #9DB5AD;
+    --line: #234039; --brand: #3DDBA9; --on-brand: #06261E; --accent: #3DDBA9; --amber: #F2B134;
+    --amber-soft: #3A2D0C; --deep: #061310; --on-deep: #BFF3E0; --silver: #A9B7B3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1816; --surface: #112521; --surface-2: #0E1F1C; --ink: #E6F1ED; --muted: #9DB5AD;
+  --line: #234039; --brand: #3DDBA9; --on-brand: #06261E; --accent: #3DDBA9; --amber: #F2B134;
+  --amber-soft: #3A2D0C; --deep: #061310; --on-deep: #BFF3E0; --silver: #A9B7B3;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+}
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; margin: 0; text-wrap: balance; letter-spacing: -0.02em; }
+p { margin: 0; }
+a { color: var(--brand); }
+.wrap { max-width: 1080px; margin: 0 auto; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+/* Header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand svg { width: 40px; height: 40px; flex: none; }
+.brand b { font-family: var(--font-display); font-weight: 800; font-size: 28px; letter-spacing: -0.04em; }
+.brand b i { font-style: normal; color: var(--brand); }
+nav { display: flex; gap: 6px; background: var(--surface); border: 1px solid var(--line); padding: 4px; border-radius: 999px; }
+nav a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 15px; padding: 8px 18px; border-radius: 999px; }
+nav a[aria-current="page"] { background: var(--brand); color: var(--on-brand); }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 12px; padding: 12px 20px; font-weight: 600; text-decoration: none; }
+.btn.primary { background: var(--brand); color: var(--on-brand); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.small { padding: 9px 14px; font-size: 14px; border-radius: 10px; }
+
+.view[hidden] { display: none !important; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding-block: 36px 56px; }
+.eyebrow { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); margin-bottom: 14px; }
+.hero h1 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 800; }
+.hero h1 em { font-style: normal; color: var(--brand); }
+.hero p.lead { font-size: 19px; color: var(--muted); max-width: 52ch; margin-top: 20px; }
+.hero .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.machine { width: 100%; max-width: 380px; justify-self: center; }
+.m-body { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.m-deep { fill: var(--deep); }
+.m-text { fill: var(--on-deep); font-family: var(--font-mono); font-size: 13px; }
+.m-plate { fill: var(--silver); }
+.m-can { fill: var(--silver); }
+.m-stripe { fill: var(--accent); }
+.m-slot { fill: var(--line); }
+.plate { animation: plate 5s ease-in-out infinite; }
+.can { transform-box: fill-box; transform-origin: 50% 100%; animation: can 5s ease-in-out infinite; }
+@keyframes plate { 0%,35% { transform: translateY(0); } 50%,68% { transform: translateY(83px); } 80%,100% { transform: translateY(0); } }
+@keyframes can {
+  0% { opacity: 0; transform: translateY(-30px) scaleY(1); }
+  8% { opacity: 1; transform: translateY(0) scaleY(1); }
+  35% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(0) scaleY(.3); }
+  72% { opacity: 1; transform: translateY(0) scaleY(.3); }
+  85% { opacity: 0; transform: translateY(40px) scaleY(.3); }
+  100% { opacity: 0; transform: translateY(-30px) scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce) { .plate, .can { animation: none; } .can { opacity: 1; } }
+
+/* Sections */
+section.block { padding-block: 48px; border-top: 1px solid var(--line); }
+.block h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 700; max-width: 22ch; }
+.block .sub { color: var(--muted); max-width: 60ch; margin-top: 12px; }
+.problem { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; margin-top: 32px; align-items: start; }
+.bars { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 14px; }
+.bars h3 { font-size: 16px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0; }
+.bar { display: grid; grid-template-columns: 96px 1fr 76px; gap: 12px; align-items: center; font-size: 15px; }
+.bar .track { height: 18px; background: var(--surface-2); border-radius: 6px; position: relative; overflow: hidden; border: 1px solid var(--line); }
+.bar .fill { position: absolute; inset: 0 auto 0 0; background: var(--silver); border-radius: 5px 0 0 5px; }
+.bar .range { position: absolute; inset: 0 auto 0 0; background: repeating-linear-gradient(135deg, var(--silver) 0 4px, transparent 4px 8px); }
+.bar.chile .fill { background: var(--brand); }
+.bar.chile { font-weight: 600; }
+.bar .val { font-family: var(--font-mono); font-size: 14px; text-align: right; }
+.source { font-size: 13px; color: var(--muted); }
+.facts { display: grid; gap: 18px; }
+.fact b { display: block; font-family: var(--font-display); font-size: 36px; font-weight: 800; letter-spacing: -0.03em; color: var(--brand); line-height: 1; }
+.fact span { color: var(--muted); font-size: 15px; }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; padding: 0; list-style: none; }
+.steps li { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; min-width: 0; }
+.steps .n { font-family: var(--font-mono); font-size: 13px; color: var(--brand); }
+.steps h3 { font-size: 20px; margin: 10px 0 6px; font-weight: 700; }
+.steps p { color: var(--muted); font-size: 15px; }
+
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 32px; }
+.three h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.three p { color: var(--muted); }
+
+.cta-band { background: var(--deep); color: var(--on-deep); border-radius: 20px; padding: 32px; display: flex; gap: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-top: 16px; }
+.cta-band h2 { color: #fff; font-size: clamp(24px, 3.4vw, 34px); max-width: 24ch; }
+.cta-band .btn.primary { background: var(--accent); color: #06261E; }
+footer { margin-top: 40px; color: var(--muted); font-size: 14px; display: grid; gap: 4px; }
+
+/* Mi cuenta */
+.acct-head { padding-block: 28px 8px; }
+.acct-head h1 { font-size: clamp(30px, 4.6vw, 48px); font-weight: 800; }
+.demo-tag { display: inline-block; font-family: var(--font-mono); font-size: 12px; background: var(--amber-soft); color: var(--amber); padding: 3px 9px; border-radius: 6px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.04em; }
+.acct { display: grid; grid-template-columns: 340px 1fr; gap: 24px; margin-top: 20px; align-items: start; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 22px; min-width: 0; }
+.qr-card { text-align: left; }
+.qr-box { background: #fff; border-radius: 14px; padding: 14px; width: fit-content; border: 1px solid var(--line); margin-top: 14px; }
+.qr-box img, .qr-box canvas { display: block; max-width: 100%; height: auto; }
+.mono { font-family: var(--font-mono); font-size: 14px; }
+.qr-card .hint { color: var(--muted); font-size: 14px; margin-top: 12px; }
+.label { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.who { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; }
+.who b { display: block; line-height: 1.2; }
+.who span { color: var(--muted); font-size: 14px; }
+.level { display: grid; gap: 16px; }
+.level-top { display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap; }
+.level-name { font-family: var(--font-display); font-size: clamp(34px, 5vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.level-name small { font-family: var(--font-mono); font-weight: 500; font-size: 14px; color: var(--amber); letter-spacing: 0.04em; display: block; margin-bottom: 8px; }
+.pts { text-align: right; }
+.pts b { font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--amber); letter-spacing: -0.03em; line-height: 1; }
+.progress { height: 14px; background: var(--surface-2); border-radius: 999px; border: 1px solid var(--line); overflow: hidden; }
+.progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent)); border-radius: 999px; transition: width .5s ease; }
+.progress-note { color: var(--muted); font-size: 15px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.stat b { display: block; font-family: var(--font-display); font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+.stat span { color: var(--muted); font-size: 14px; }
+.levels { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+.levels span { font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; color: var(--muted); }
+.levels span.on { background: var(--brand); color: var(--on-brand); border-color: var(--brand); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.hist { list-style: none; margin: 14px 0 0; padding: 0; }
+.hist li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.hist li:first-child { border-top: 0; }
+.hist .when { color: var(--muted); font-size: 13px; }
+.hist .p { font-family: var(--font-mono); color: var(--amber); align-self: center; grid-row: span 2; }
+.card h3.sec { font-family: var(--font-body); font-size: 17px; font-weight: 600; letter-spacing: 0; }
+
+@media (max-width: 860px) {
+  .hero, .problem, .acct { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .three { grid-template-columns: 1fr; gap: 24px; }
+  .machine { max-width: 300px; }
+}
+@media (max-width: 520px) {
+  .steps { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .bar { grid-template-columns: 84px 1fr 64px; }
+  nav a { padding: 8px 14px; }
+  .pts { text-align: left; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inicio" aria-label="Relata, inicio">
+      <svg viewBox="0 0 48 48" role="img" aria-label="Logo de Relata">
+        <path d="M24 5a19 19 0 1 1-17.6 12" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M2.5 13.5 6.4 17.4 11.6 12.8" fill="none" stroke="var(--brand)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="16" y="14" width="16" height="20" rx="3.5" fill="var(--silver)" stroke="var(--ink)" stroke-width="2"/>
+        <rect x="16" y="21" width="16" height="6" fill="var(--accent)"/>
+        <path d="M17.5 14h13" stroke="var(--ink)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <b>re<i>lata</i></b>
+    </a>
+    <nav aria-label="Principal">
+      <a href="#inicio" id="nav-inicio">Inicio</a>
+      <a href="#mi-cuenta" id="nav-cuenta">Mi cuenta</a>
+    </nav>
+  </header>
+
+  <!-- INICIO -->
+  <main id="view-inicio" class="view">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Compactadora inteligente de latas</p>
+        <h1>Cada lata que aplastas <em>cuenta.</em></h1>
+        <p class="lead">Relata es una máquina para supermercados, malls y estaciones de servicio. Aplasta tu lata al instante, te entrega puntos y niveles, y deja el aluminio compactado, listo para volver a ser lata.</p>
+        <div class="cta">
+          <a class="btn primary" href="#mi-cuenta">Ver mi cuenta</a>
+          <button class="btn ghost" type="button" id="go-how">Cómo funciona</button>
+        </div>
+      </div>
+      <svg class="machine" viewBox="0 0 360 340" role="img" aria-label="Ilustración de la máquina Relata aplastando una lata">
+        <rect class="m-body" x="60" y="14" width="240" height="316" rx="20"/>
+        <rect class="m-deep" x="86" y="38" width="188" height="56" rx="10"/>
+        <text class="m-text" x="100" y="62">NIVEL 2 · LÁMINA</text>
+        <text class="m-text" x="100" y="82" style="fill:var(--accent)">52 puntos</text>
+        <rect class="m-deep" x="86" y="112" width="188" height="136" rx="12"/>
+        <g class="plate"><rect class="m-plate" x="100" y="120" width="160" height="14" rx="4"/><rect class="m-plate" x="174" y="104" width="12" height="20" rx="3"/></g>
+        <g class="can">
+          <rect class="m-can" x="152" y="174" width="56" height="66" rx="8"/>
+          <rect class="m-stripe" x="152" y="196" width="56" height="18"/>
+          <rect class="m-can" x="152" y="170" width="56" height="8" rx="4"/>
+        </g>
+        <rect class="m-slot" x="86" y="262" width="110" height="46" rx="8"/>
+        <g>
+          <rect class="m-plate" x="96" y="276" width="40" height="18" rx="3"/>
+          <rect class="m-plate" x="142" y="276" width="40" height="18" rx="3"/>
+        </g>
+        <rect class="m-deep" x="212" y="262" width="62" height="46" rx="8"/>
+        <path d="M224 274h14v14h-14zM246 274h14v14h-14zM224 296h14M246 296h14" fill="none" stroke="var(--on-deep)" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <section class="block" id="problema">
+      <h2>En Chile se recicla cerca de 1 de cada 3 latas</h2>
+      <p class="sub">El aluminio se puede reciclar una y otra vez, pero a la mayoría de las personas reciclar una lata les resulta incómodo y no les da nada a cambio.</p>
+      <div class="problem">
+        <div class="bars" role="img" aria-label="Reciclaje de latas de aluminio: Brasil 97,4%, Argentina 91,1%, Paraguay entre 80 y 90%, Chile 36%">
+          <h3>Latas de aluminio recicladas (%)</h3>
+          <div class="bar"><span>Brasil</span><div class="track"><div class="fill" style="width:97.4%"></div></div><span class="val">97,4%</span></div>
+          <div class="bar"><span>Argentina</span><div class="track"><div class="fill" style="width:91.1%"></div></div><span class="val">91,1%</span></div>
+          <div class="bar"><span>Paraguay</span><div class="track"><div class="fill" style="width:80%"></div><div class="range" style="left:80%;width:10%"></div></div><span class="val">80-90%</span></div>
+          <div class="bar chile"><span>Chile</span><div class="track"><div class="fill" style="width:36%"></div></div><span class="val">36%</span></div>
+          <p class="source">Fuente: ANIR, citada en Forbes Chile (2025) y G5 Noticias (2026).</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><b>15.000 t</b><span>de aluminio terminan cada año en vertederos.</span></div>
+          <div class="fact"><b>95%</b><span>menos energía al reciclar aluminio que al producirlo desde cero.</span></div>
+          <div class="fact"><b>2 a 6%</b><span>del peso de una ruta de recolección es aluminio, pero su venta cubre más de la mitad de los costos de los recicladores.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="como-funciona">
+      <h2>Cómo funciona</h2>
+      <ol class="steps">
+        <li><span class="n">PASO 1</span><h3>Escanea tu QR</h3><p>Desde Mi cuenta, muestra tu código a la máquina para identificarte.</p></li>
+        <li><span class="n">PASO 2</span><h3>Inserta la lata</h3><p>La máquina lee la marca de la lata antes de aplastarla.</p></li>
+        <li><span class="n">PASO 3</span><h3>Míralo en vivo</h3><p>La lata se aplasta al instante y sumas puntos. Las de la marca auspiciadora valen 1,5 veces más.</p></li>
+        <li><span class="n">PASO 4</span><h3>Sube de nivel</h3><p>Cada 20 latas recicladas ganas una lata gratis.</p></li>
+      </ol>
+    </section>
+
+    <section class="block" id="proyecto">
+      <h2>Tres partes, un mismo circuito</h2>
+      <div class="three">
+        <div><h3>Mecanismo</h3><p>Compactación en dos etapas: primero cada lata, y cuando el depósito se llena, todo el lote en un bloque fácil de transportar.</p></div>
+        <div><h3>Incentivos</h3><p>Puntos, niveles y latas gratis para quien recicla, y datos verificables de recuperación para la marca que lo auspicia.</p></div>
+        <div><h3>Alianza</h3><p>La empresa auspiciadora usa su ruta de reparto para retirar los bloques cuando entrega latas nuevas al local.</p></div>
+      </div>
+    </section>
+
+    <div class="cta-band">
+      <h2>Mira cómo se ve tu progreso</h2>
+      <a class="btn primary" href="#mi-cuenta">Ir a Mi cuenta</a>
+    </div>
+    <footer>
+      <span>Relata · Prototipo del curso TEI101, Universidad Adolfo Ibáñez · Grupo 2</span>
+      <span>Felix Villard, Matias Lobos, Vicente Perez y Agustin Garcia</span>
+    </footer>
+  </main>
+
+  <!-- MI CUENTA -->
+  <main id="view-cuenta" class="view" hidden>
+    <div class="acct-head">
+      <p class="eyebrow">Mi cuenta<span class="demo-tag">DATOS DE EJEMPLO</span></p>
+      <h1>Hola, Usuario Demo</h1>
+    </div>
+    <div class="acct">
+      <aside class="card qr-card">
+        <div class="who"><div class="avatar" aria-hidden="true">UD</div><div><b>Usuario Demo</b><span>Miembro desde octubre de 2026</span></div></div>
+        <p class="label">Tu código de identificación</p>
+        <div class="qr-box" id="qr" aria-label="Código QR de identificación"></div>
+        <p class="mono" style="margin-top:12px" id="uid">RLT-USR-000482</p>
+        <p class="hint">Muestra este código al lector de la máquina antes de insertar tus latas.</p>
+      </aside>
+
+      <div>
+        <div class="card level">
+          <div class="level-top">
+            <div class="level-name"><small id="lvl-num">NIVEL 2</small><span id="lvl-name">Lámina</span></div>
+            <div class="pts"><span class="label">Puntos</span><br><b id="pts">52</b></div>
+          </div>
+          <div class="progress" role="progressbar" aria-label="Progreso al siguiente nivel" aria-valuemin="0" aria-valuemax="100" id="bar"><i id="bar-fill" style="width:0%"></i></div>
+          <p class="progress-note" id="lvl-note"></p>
+          <div class="levels" id="levels"></div>
+        </div>
+
+        <div class="stats">
+          <div class="card stat"><b id="s-total">45</b><span>latas recicladas</span></div>
+          <div class="card stat"><b id="s-sponsor">14</b><span>de la marca auspiciadora (valen 1,5)</span></div>
+          <div class="card stat"><b id="s-free">2</b><span>latas gratis ganadas</span></div>
+        </div>
+        <p class="progress-note" id="free-note" style="margin:10px 4px 0"></p>
+
+        <div class="card" style="margin-top:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <h3 class="sec">Historial reciente</h3>
+            <div class="actions">
+              <button class="btn ghost small" type="button" id="add-other">+ Lata de otra marca</button>
+              <button class="btn primary small" type="button" id="add-sponsor">+ Lata auspiciadora</button>
+              <button class="btn ghost small" type="button" id="reset">Reiniciar demo</button>
+            </div>
+          </div>
+          <ul class="hist" id="hist"></ul>
+          <p class="source" style="margin-top:10px">Los botones simulan que la máquina recibe una lata, para mostrar cómo cambian los puntos y el nivel.</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <span>Relata · Prototipo del curso TEI101, Universidad Adolfo Ibáñez · Grupo 2</span>
+    </footer>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function () {
+  var LEVELS = [
+    { n: 1, name: 'Lata', min: 0 },
+    { n: 2, name: 'Lámina', min: 25 },
+    { n: 3, name: 'Bloque', min: 75 },
+    { n: 4, name: 'Lingote', min: 150 },
+    { n: 5, name: 'Infinito', min: 300 }
+  ];
+  var KEY = 'relata-demo-v1';
+  var seed = function () {
+    return {
+      sponsor: 14, other: 31,
+      hist: [
+        { brand: 'sponsor', when: 'Ayer, 18:42', pts: 1.5 },
+        { brand: 'other', when: 'Ayer, 18:41', pts: 1 },
+        { brand: 'sponsor', when: 'Sáb 24 oct, 13:05', pts: 1.5 },
+        { brand: 'other', when: 'Sáb 24 oct, 13:04', pts: 1 },
+        { brand: 'sponsor', when: 'Mié 21 oct, 20:18', pts: 1.5 }
+      ]
+    };
+  };
+  var state = seed();
+  try { var saved = localStorage.getItem(KEY); if (saved) state = JSON.parse(saved); } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var fmt = function (v) { return v.toLocaleString('es-CL', { maximumFractionDigits: 1 }); };
+  var $ = function (id) { return document.getElementById(id); };
+
+  function render() {
+    var pts = state.other + state.sponsor * 1.5;
+    var total = state.other + state.sponsor;
+    var lvl = LEVELS[0];
+    LEVELS.forEach(function (l) { if (pts >= l.min) lvl = l; });
+    var next = LEVELS[lvl.n] || null;
+    $('pts').textContent = fmt(pts);
+    $('lvl-num').textContent = 'NIVEL ' + lvl.n;
+    $('lvl-name').textContent = lvl.name;
+    var pct = next ? Math.min(100, ((pts - lvl.min) / (next.min - lvl.min)) * 100) : 100;
+    $('bar-fill').style.width = pct + '%';
+    $('bar').setAttribute('aria-valuenow', Math.round(pct));
+    $('lvl-note').textContent = next
+      ? 'Te faltan ' + fmt(next.min - pts) + ' puntos para el nivel ' + next.n + ' (' + next.name + ').'
+      : 'Llegaste al nivel máximo.';
+    $('levels').innerHTML = LEVELS.map(function (l) {
+      return '<span class="' + (l.n <= lvl.n ? 'on' : '') + '">' + l.n + ' · ' + l.name + '</span>';
+    }).join('');
+    $('s-total').textContent = total;
+    $('s-sponsor').textContent = state.sponsor;
+    var free = Math.floor(pts / 20);
+    $('s-free').textContent = free;
+    $('free-note').textContent = 'Ganas una lata gratis cada 20 puntos. La siguiente llega a los ' + ((free + 1) * 20) + ' puntos (te faltan ' + fmt((free + 1) * 20 - pts) + ').';
+    $('hist').innerHTML = state.hist.slice(0, 6).map(function (h) {
+      return '<li><span>' + (h.brand === 'sponsor' ? 'Lata de la marca auspiciadora' : 'Lata de otra marca') + '</span><span class="p">+' + fmt(h.pts) + ' pts</span><span class="when">' + h.when + ' · Máquina Relata 01</span></li>';
+    }).join('');
+  }
+
+  function add(brand) {
+    if (brand === 'sponsor') state.sponsor++; else state.other++;
+    var d = new Date();
+    var when = 'Hoy, ' + d.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+    state.hist.unshift({ brand: brand, when: when, pts: brand === 'sponsor' ? 1.5 : 1 });
+    save(); render();
+  }
+  $('add-sponsor').addEventListener('click', function () { add('sponsor'); });
+  $('add-other').addEventListener('click', function () { add('other'); });
+  $('reset').addEventListener('click', function () { state = seed(); save(); render(); });
+
+  // QR de identificación
+  var uid = 'RLT-USR-000482';
+  try {
+    new QRCode($('qr'), { text: 'RELATA:' + uid, width: 176, height: 176, colorDark: '#0F2F2A', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  } catch (e) {
+    $('qr').innerHTML = '<p class="mono" style="padding:24px">' + uid + '</p>';
+  }
+
+  // Vistas por hash
+  function route() {
+    var h = (location.hash || '#inicio').replace('#', '');
+    var acct = h === 'mi-cuenta';
+    $('view-inicio').hidden = acct;
+    $('view-cuenta').hidden = !acct;
+    $('nav-inicio').setAttribute('aria-current', acct ? 'false' : 'page');
+    $('nav-cuenta').setAttribute('aria-current', acct ? 'page' : 'false');
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route);
+  $('go-how').addEventListener('click', function () {
+    var el = $('como-funciona');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  render(); route();
+})();
+</script>
+
+</body></html>
