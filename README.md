@@ -45,12 +45,14 @@ npm test                    # corre los tests
    ```html
    <h2>Entra a ReLata</h2>
    <p>Haz clic para ingresar. El enlace vence en una hora.</p>
-   <p><a href="{{ .RedirectTo }}&token_hash={{ .TokenHash }}&type=email">Ingresar a ReLata</a></p>
+   <p><a href="{{ .SiteURL }}/auth/confirmar?token_hash={{ .TokenHash }}&type=email">Ingresar a ReLata</a></p>
    <p>Si no pediste este correo, ignóralo.</p>
    ```
 
-> El plan gratis de Supabase envía pocos correos por hora (suficiente para la demo).
-> Para más, configura un SMTP propio en *Authentication → Emails → SMTP Settings*.
+> Editar las plantillas requiere un SMTP propio (*Authentication → Emails → SMTP Settings*;
+> por ejemplo Gmail con una contraseña de aplicación). Sin SMTP, el correo por defecto de
+> Supabase solo llega a miembros del equipo del proyecto, envía pocos correos por hora y el
+> enlace debe abrirse en el mismo navegador donde se pidió.
 
 ### Base de datos
 

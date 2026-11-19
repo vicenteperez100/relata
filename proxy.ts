@@ -8,6 +8,12 @@ import { NextResponse, type NextRequest } from "next/server";
  * cada página en el servidor (lib/auth/sesion.ts).
  */
 export async function proxy(request: NextRequest) {
+  // Si el enlace del correo dejó a la persona en otra página (por ejemplo la
+  // portada, cuando Supabase usa la "Site URL"), la llevamos a /auth/confirmar
+  // con los mismos datos para completar el ingreso.
+  const reenvio = reenviarConfirmacion(request);
+  if (reenvio) return reenvio;
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   // Sin Supabase configurado (aún no hay .env.local), el sitio sigue funcionando.
@@ -34,6 +40,20 @@ export async function proxy(request: NextRequest) {
   await supabase.auth.getClaims();
 
   return response;
+}
+
+/** Parámetros que Supabase agrega al enlace del correo. */
+const PARAMETROS_INGRESO = ["code", "token_hash"] as const;
+
+export function reenviarConfirmacion(request: NextRequest): NextResponse | null {
+  const { pathname, searchParams } = request.nextUrl;
+  if (pathname.startsWith("/auth/confirmar")) return null;
+  if (!PARAMETROS_INGRESO.some((p) => searchParams.has(p))) return null;
+
+  const destino = request.nextUrl.clone();
+  destino.pathname = "/auth/confirmar";
+  if (!destino.searchParams.has("next")) destino.searchParams.set("next", "/mi-cuenta");
+  return NextResponse.redirect(destino);
 }
 
 export const config = {
