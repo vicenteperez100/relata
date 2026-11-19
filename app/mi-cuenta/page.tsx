@@ -4,7 +4,10 @@ import { Historial } from "@/components/cuenta/Historial";
 import { Progreso } from "@/components/cuenta/Progreso";
 import { TarjetaQr } from "@/components/cuenta/TarjetaQr";
 import s from "@/components/cuenta/cuenta.module.css";
+import Link from "next/link";
+import { esOperador } from "@/lib/auth/operador";
 import { requerirUsuario } from "@/lib/auth/sesion";
+import { envServidor } from "@/lib/env/servidor";
 import { CONTEO_EJEMPLO, HISTORIAL_EJEMPLO, desdeFilas } from "@/lib/cuenta/vista";
 import { resumenCuenta } from "@/lib/reglas/puntos";
 import { supabaseServidor } from "@/lib/supabase/servidor";
@@ -98,6 +101,11 @@ async function Cuenta() {
         <div className="card">
           <FormularioAlias aliasActual={perfil.alias} />
         </div>
+        {esOperador(usuario.correo, envServidor().OPERATOR_EMAILS) && (
+          <p>
+            Eres operador de la demo: <Link href="/simulador">abrir el simulador de la máquina</Link>.
+          </p>
+        )}
         <form action={cerrarSesion}>
           <button className="btn ghost" type="submit">
             Cerrar sesión

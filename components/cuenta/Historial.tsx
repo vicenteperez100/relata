@@ -19,7 +19,7 @@ export function Historial({ eventos, ejemplo }: { eventos: readonly EventoLata[]
               <span>{e.tipo === "auspiciadora" ? "Lata de la marca auspiciadora" : "Lata de otra marca"}</span>
               <span className={s.p}>+{formatearPuntos(puntosDe(e.tipo))} pts</span>
               <span className={s.when}>
-                <time dateTime={e.fecha}>{formatearFecha(e.fecha)}</time> · Máquina {e.maquinaId}
+                <time dateTime={e.fecha}>{formatearFecha(e.fecha)}</time> · {e.maquinaId.startsWith("SIM") ? `Simulador (${e.maquinaId})` : `Máquina ${e.maquinaId}`}
               </span>
             </li>
           ))}

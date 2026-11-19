@@ -25,13 +25,18 @@
 .reader { fill: none; stroke: var(--on-deep); stroke-width: 2; }
 
 /* Ciclo de 5 s: la placa baja, la lata se aplasta y cae al depósito. */
-.plate { animation: plate 5s ease-in-out infinite; }
-.can {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: can 5s ease-in-out infinite;
-}
-.screenMsg { animation: screen 5s steps(1, end) infinite; }
+.can { transform-box: fill-box; transform-origin: 50% 100%; }
+.ciclo .plate { animation: plate 5s ease-in-out infinite; }
+.ciclo .can { animation: can 5s ease-in-out infinite; }
+.ciclo .screenMsg { animation: screen 5s steps(1, end) infinite; }
+
+/* Simulador: quieta esperando una lata */
+.quieta { }
+
+/* Simulador: una sola vez por lata (2,4 s) y la pantalla queda encendida */
+.unaVez .plate { animation: plate 2.4s ease-in-out 1 both; }
+.unaVez .can { animation: canUnaVez 2.4s ease-in-out 1 both; }
+.unaVez .screenMsg { animation: screenUnaVez 2.4s steps(1, end) 1 both; }
 
 @keyframes plate {
   0%, 35% { transform: translateY(0); }
@@ -47,6 +52,18 @@
   85% { opacity: 0; transform: translateY(40px) scaleY(0.3); }
   100% { opacity: 0; transform: translateY(-30px) scaleY(1); }
 }
+@keyframes canUnaVez {
+  0% { opacity: 0; transform: translateY(-30px) scaleY(1); }
+  8% { opacity: 1; transform: translateY(0) scaleY(1); }
+  35% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(0) scaleY(0.3); }
+  72% { opacity: 1; transform: translateY(0) scaleY(0.3); }
+  90%, 100% { opacity: 0; transform: translateY(40px) scaleY(0.3); }
+}
+@keyframes screenUnaVez {
+  0% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
 /* El mensaje "+1,5 pts" aparece solo después de aplastar la lata */
 @keyframes screen {
   0% { opacity: 0; }
@@ -56,8 +73,10 @@
 
 /* Sin animación: lata entera y mensaje visible */
 @media (prefers-reduced-motion: reduce) {
-  .plate, .can, .screenMsg { animation: none; }
+  .ciclo .plate, .ciclo .can, .ciclo .screenMsg,
+  .unaVez .plate, .unaVez .can, .unaVez .screenMsg { animation: none; }
   .can, .screenMsg { opacity: 1; }
+  .unaVez .can { opacity: 0; } /* sin animación: la lata ya se fue al depósito */
 }
 
 /* ---------- Secciones ---------- */

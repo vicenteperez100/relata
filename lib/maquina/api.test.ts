@@ -79,10 +79,10 @@ describe("POST /api/maquina/latas", () => {
   });
 
   it.each([
-    [{ ...LATA, tipo: "botella" }, "tipo inválido"],
-    [{ ...LATA, maquinaId: "RLT 01; DROP" }, "maquinaId inválido"],
-    [{ tipo: "otra", maquinaId: "RLT-01" }, "sin token"],
-  ])("400 datos inválidos: %s", async (cuerpo, _) => {
+    { motivo: "tipo inválido", cuerpo: { ...LATA, tipo: "botella" } },
+    { motivo: "maquinaId inválido", cuerpo: { ...LATA, maquinaId: "RLT 01; DROP" } },
+    { motivo: "sin token", cuerpo: { tipo: "otra", maquinaId: "RLT-01" } },
+  ])("400 datos inválidos: $motivo", async ({ cuerpo }) => {
     const res = await enviar(peticion(cuerpo));
     expect(res.status).toBe(400);
     expect((await res.json()).codigo).toBe("datos_invalidos");

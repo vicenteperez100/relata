@@ -3,17 +3,37 @@ import s from "./inicio.module.css";
 
 const puntosAuspiciadora = PUNTOS_POR_LATA.auspiciadora.toLocaleString("es-CL");
 
+interface Props {
+  /** Las dos líneas de la pantalla. Por defecto, el mensaje de ejemplo del Inicio. */
+  pantalla?: [string, string];
+  /**
+   * Sin este dato: animación en ciclo infinito (Inicio).
+   * 0: máquina quieta esperando una lata. 1, 2, 3…: aplasta UNA vez; cada número
+   * nuevo reinicia la animación (el simulador lo sube con cada lata).
+   */
+  disparo?: number;
+  className?: string;
+}
+
 /**
  * Ilustración animada de la máquina (primera etapa: aplastar cada lata).
  * La animación es solo CSS y se detiene si la persona pidió menos movimiento.
  */
-export function Maquina() {
+export function Maquina({ pantalla, disparo, className }: Props) {
+  const [linea1, linea2] = pantalla ?? ["¡LATA ACEPTADA!", `+${puntosAuspiciadora} puntos`];
+  const modo = disparo === undefined ? s.ciclo : disparo === 0 ? s.quieta : s.unaVez;
+
   return (
     <svg
-      className={s.machine}
+      key={disparo}
+      className={`${s.machine} ${modo} ${className ?? ""}`}
       viewBox="0 0 360 340"
       role="img"
-      aria-label="Ilustración de la máquina ReLata: una placa baja, aplasta la lata y la pantalla muestra los puntos ganados"
+      aria-label={
+        disparo === undefined
+          ? "Ilustración de la máquina ReLata: una placa baja, aplasta la lata y la pantalla muestra los puntos ganados"
+          : `Máquina ReLata. Pantalla: ${linea1} ${linea2}`
+      }
     >
       {/* Cuerpo */}
       <rect className={s.body} x="60" y="14" width="240" height="316" rx="20" />
@@ -21,9 +41,11 @@ export function Maquina() {
       {/* Pantalla */}
       <rect className={s.deep} x="86" y="38" width="188" height="56" rx="10" />
       <g className={s.screenMsg}>
-        <text className={s.screenText} x="100" y="62">¡LATA ACEPTADA!</text>
+        <text className={s.screenText} x="100" y="62">
+          {linea1}
+        </text>
         <text className={`${s.screenText} ${s.screenAccent}`} x="100" y="82">
-          +{puntosAuspiciadora} puntos
+          {linea2}
         </text>
       </g>
 

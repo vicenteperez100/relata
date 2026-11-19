@@ -96,6 +96,17 @@ curl -X POST http://localhost:3000/api/maquina/latas \
 
 La lógica está en `lib/maquina/` y tiene tests (`npm test`).
 
+## Simulador (demo)
+
+`/simulador` imita la máquina para presentaciones: lee el QR con la cámara del
+computador (o "Usar mi propio QR" si hay un solo dispositivo) y registra latas
+con los botones "Lata auspiciadora" / "Lata de otra marca".
+
+- Solo pueden entrar los correos de `OPERATOR_EMAILS` (en `.env.local`).
+- Las latas se guardan de verdad, marcadas como máquina `SIM-01`.
+- La clave secreta nunca llega al navegador: el registro ocurre en el servidor.
+- La cámara funciona en `http://localhost` y en sitios `https://` (no en una IP de la red local).
+
 ## Carpetas
 
 ```
